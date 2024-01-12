@@ -1,0 +1,30 @@
+<div class="disclaimer">
+  Guess a Drawing using Gemini AI. Let's draw.
+</div>
+<app-canvas [width]="400" [height]="400" />
+<section class="prompt-controls">
+  <input [disabled]="speechActive" [(ngModel)]="prompt" placeholder="Type a question..." type="text" />
+  <div class="prompt-config">
+    <select [disabled]="speechActive" [(ngModel)]="currentLanguage">
+      @for (lang of languages; track lang.lang) {
+      <option [value]="lang.lang">{{ lang.label }}</option>
+      }
+    </select>
+    <mat-icon [hidden]="true" (click)="speechInput()" aria-hidden="false" aria-label="Microphone"
+      fontIcon="microphone" />
+    <button mat-button color="primary" [class.spinner]="disabled"
+      [disabled]="disabled || prompt.length < 5 || speechActive" (click)="recognize()">
+      Ask
+    </button>
+  </div> 
+</section>
+<div class="answer"> 
+  @if (output !== '') { 
+  <span><span class="gemini-name" style="border: 1px solid lavender;">🤖 says:</span> {{ output }}</span>
+  }
+</div>
+<div class="footer">
+  <span style="  position: absolute;
+  width: 50%;
+  bottom: 10px; right: 3%;">Designed by <a href="https://thisisakshatsri.github.io"> Akshat</a></span> 
+</div> 
